@@ -57,7 +57,7 @@ public class EmployeeDatabaseManager {
 	public void displayEmployeeRecords(String[] args) {
 
 		if (args.length != 3) {
-			throw new IllegalArgumentException("Usage: TestExcersise2 department payType educationLevel");
+			throw new IllegalArgumentException("Usage: EmployeeDatabaseManager department payType educationLevel");
 		}
 
 		try {
