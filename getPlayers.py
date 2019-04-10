@@ -4,6 +4,7 @@ team_data_url = 'https://macclesfield.fantasyclubcricket.co.uk/includes/scripts/
 data = {"teamID": 1, "gameweek": 0}
 
 player_list = []
+captain_list = []
 
 teams = requests.get('https://macclesfield.fantasyclubcricket.co.uk/includes/teamlist.php')
 for team in teams.json():
@@ -12,16 +13,26 @@ for team in teams.json():
     players = r.json()['team_players']
     for player in players:
         player_list.append(player['name'])
-
-player_set = set(player_list)
-
-sort_list = []
+        if player['is_captain']:
+            captain_list.append(player['name'])
 
 
-for player in player_set:
-    sort_list.append((player_list.count(player), player))
+sorted_players = []
+sorted_captains = []
 
-sort_list.sort(reverse=True)
+for captain in set(captain_list):
+    sorted_captains.append((captain_list.count(captain), captain))
 
-for player in sort_list:
+for player in set(player_list):
+    sorted_players.append((player_list.count(player), player))
+
+sorted_players.sort(reverse=True)
+sorted_captains.sort(reverse=True)
+
+for player in sorted_players:
     print player
+
+print "------------------------------------------------------------"
+
+for captain in sorted_captains:
+    print captain
